@@ -3,7 +3,7 @@ var moment = require('moment');
 var exec = require('child_process').exec;
 
 // Light up LED when we are this many days until the event happens
-const daysMarker = 2; 
+const daysMarker = 0; 
 
 // GPIO pins, change if you have hooked them up to different pins
 const pins = {
