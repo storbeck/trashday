@@ -84,7 +84,7 @@ function getDaysUntil(zoneEvents) {
 // Output to console
 function output(daysUntil) {
     for (var key in daysUntil) {
-        console.log(`${daysUntil[key]} is in ${key} day(s)`);
+        console.log(`${key} is in ${daysUntil[key]} day(s)`);
     }
 }
 
@@ -93,12 +93,24 @@ function updatePins(daysUntil) {
     for (var key in daysUntil) {
 
         // Only update the gpio pin if we have it wired up (i don't wire up yard waste)
-        if (pins[key] && daysUntil[key] === 2) {
-            gpio.open(pins[key], 'output', err => {
-                gpio.write(pins[key], 1, () => {
-                    gpio.close(pins[key])
+        if (pins[key]) {
+
+            // Turn on the LED if number of days matches our defined marker
+            if (daysUntil[key] === daysMarker) {
+                gpio.open(pins[key], 'output', err => {
+                    gpio.write(pins[key], 1, () => {
+                        gpio.close(pins[key])
+                    })
                 })
-            })
+
+            // Turn off LED if days do not match
+            } else {
+                gpio.open(pins[key], 'output', err => {
+                    gpio.write(pins[key], 0, () => {
+                        gpio.close(pins[key])
+                    })
+                })
+            }
         }
     }
 }
