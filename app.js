@@ -1,6 +1,5 @@
 var fetch = require('node-fetch');
 var moment = require('moment');
-var sys = require('sys')
 var exec = require('child_process').exec;
 
 // Light up LED when we are this many days until the event happens
@@ -98,11 +97,11 @@ function updatePins(daysUntil) {
 
             // Turn on the LED if number of days matches our defined marker
             if (daysUntil[key] === daysMarker) {
-                exec(`gpio -g write ${pins[key]} 1`)
+                exec(`gpio -g write ${pins[key]} 1`, handleOutput)
 
             // Turn off LED if days do not match
             } else {
-                exec(`gpio -g write ${pins[key]} 0`)
+                exec(`gpio -g write ${pins[key]} 0`, handleOutput)
             }
         }
     }
