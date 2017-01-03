@@ -1,14 +1,15 @@
 var fetch = require('node-fetch');
 var moment = require('moment');
-var gpio = require('pi-gpio');
+var sys = require('sys')
+var exec = require('child_process').exec;
 
 // Light up LED when we are this many days until the event happens
 const daysMarker = 2; 
 
 // GPIO pins, change if you have hooked them up to different pins
 const pins = {
-    'garbage': 16,
-    'recycle': 18
+    'garbage': 23,
+    'recycle': 24
 }
 
 // Used for the AJAX call so we search from Sunday to Saturday
@@ -97,23 +98,16 @@ function updatePins(daysUntil) {
 
             // Turn on the LED if number of days matches our defined marker
             if (daysUntil[key] === daysMarker) {
-                console.log(`Turning on pin ${pins[key]}`)
-                gpio.open(pins[key], 'output', err => {
-                    if (err) throw err;
-
-                    gpio.write(pins[key], 1, () => {
-                        gpio.close(pins[key])
-                    })
-                })
+                exec(`gpio -g write ${pins[key]} 1`)
 
             // Turn off LED if days do not match
             } else {
-                gpio.open(pins[key], 'output', err => {
-                    gpio.write(pins[key], 0, () => {
-                        gpio.close(pins[key])
-                    })
-                })
+                exec(`gpio -g write ${pins[key]} 0`)
             }
         }
     }
+}
+
+function handleOutput(error, stdout, stderr) {
+    console.log(stdout);
 }

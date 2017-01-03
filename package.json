@@ -10,7 +10,6 @@
   "license": "ISC",
   "dependencies": {
     "moment": "^2.17.1",
-    "node-fetch": "^1.6.3",
-    "pi-gpio": "0.0.8"
+    "node-fetch": "^1.6.3"
   }
 }
