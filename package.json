@@ -1,0 +1,16 @@
+{
+  "name": "trashday",
+  "version": "1.0.0",
+  "description": "",
+  "main": "trashday.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "moment": "^2.17.1",
+    "node-fetch": "^1.6.3",
+    "pi-gpio": "0.0.8"
+  }
+}
