@@ -11,6 +11,11 @@ const pins = {
     'recycle': 24
 }
 
+// Open pins for out
+for (var key in pins) {
+    exec(`gpio -g mode ${pins[key]} out`, handleOutput);
+}
+
 // Used for the AJAX call so we search from Sunday to Saturday
 const startOfWeek = moment().startOf('week').format('YYYY-MM-DD');
 const endOfWeek = moment().endOf('week').format('YYYY-MM-DD');
