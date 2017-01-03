@@ -7,8 +7,8 @@ const daysMarker = 2;
 
 // GPIO pins, change if you have hooked them up to different pins
 const pins = {
-    'garbage': 36,
-    'recycle': 37
+    'garbage': 16,
+    'recycle': 18
 }
 
 // Used for the AJAX call so we search from Sunday to Saturday
@@ -99,6 +99,8 @@ function updatePins(daysUntil) {
             if (daysUntil[key] === daysMarker) {
                 console.log(`Turning on pin ${pins[key]}`)
                 gpio.open(pins[key], 'output', err => {
+                    if (err) throw err;
+
                     gpio.write(pins[key], 1, () => {
                         gpio.close(pins[key])
                     })
